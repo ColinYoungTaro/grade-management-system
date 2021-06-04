@@ -1,6 +1,6 @@
 package com.yxxt.gradems.req;
 
-public class StudentReq {
+public class StudentReq extends PageReq{
     private Long userId;
 
     private Integer rowId;

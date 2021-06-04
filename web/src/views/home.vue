@@ -55,9 +55,14 @@
       const student = ref();
 
       onMounted(() => {
-        axios.get("/student/list").then((response) => {
+        axios.get("/student/list",{
+          params:{
+            page: 1,
+            size: 3000,
+          }
+        }).then((response) => {
           const data = response.data;
-          student.value = data.content;
+          student.value = data.content.list;
         });
       });
 

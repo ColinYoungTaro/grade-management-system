@@ -1,0 +1,34 @@
+package com.yxxt.gradems.req;
+
+public class PageReq {
+    // 请求的页数
+    private int page;
+
+    // 一页的大小
+    private int size;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("PageReq{");
+        sb.append("page=").append(page);
+        sb.append(", size=").append(size);
+        sb.append('}');
+        return sb.toString();
+    }
+}
