@@ -7,6 +7,7 @@ import com.yxxt.gradems.req.StudentReq;
 import com.yxxt.gradems.resp.StudentResp;
 import com.yxxt.gradems.util.CopyUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,7 +21,10 @@ public class StudentService {
     public List<StudentResp> list(StudentReq req) {
         StudentExample studentExample = new StudentExample();
         StudentExample.Criteria criteria = studentExample.createCriteria();
-        criteria.andUserIdEqualTo(req.getUserId());
+        if (!ObjectUtils.isEmpty(req.getUserId())) {
+            criteria.andUserIdEqualTo(req.getUserId());
+        }
+
         List<Student>  studentList = studentMapper.selectByExample(studentExample);
 
         // List<StudentResp> respList = new ArrayList<>();
