@@ -7,14 +7,14 @@
       <a-table
               :columns="columns"
               :row-key="record => record.id"
-              :data-source="students"
+              :data-source="student"
               :pagination="pagination"
               :loading="loading"
               @change="handleTableChange"
       >
         <template v-slot:action="{ text, record }">
           <a-space size="small">
-            <a-button type="primary" @click="edit(record)">
+            <a-button type="primary">
               编辑
             </a-button>
             <a-button type="danger">
@@ -25,33 +25,6 @@
       </a-table>
     </a-layout-content>
   </a-layout>
-  <a-modal
-          title="学生表单"
-          v-model:visible="modalVisible"
-          :confirm-loading="modalLoading"
-          @ok="handleModalOk"
-  >
-    <a-form :model="student" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
-      <a-form-item label="用户名">
-        <a-input v-model:value="student.userId" />
-      </a-form-item>
-      <a-form-item label="专业">
-        <a-input v-model:value="student.majorId" />
-      </a-form-item>
-      <a-form-item label="年级">
-        <a-input v-model:value="student.grade" />
-      </a-form-item>
-      <a-form-item label="学籍状态">
-        <a-input v-model:value="student.status" />
-      </a-form-item>
-      <a-form-item label="行政班级">
-        <a-input v-model:value="student.adminClassId" />
-      </a-form-item>
-      <a-form-item label="入学年份">
-        <a-input v-model:value="student.enterYear" />
-      </a-form-item>
-    </a-form>
-  </a-modal>
 </template>
 
 <script lang="ts">
@@ -60,16 +33,16 @@
   import axios from 'axios';
 
   export default defineComponent({
-    name: 'AdminStudent',
+    name: 'AdminManager',
     components: {
       TheUserSider,
     },
     setup() {
-      const students = ref();
+      const student = ref();
 
       const pagination = ref({
         current: 1,
-        pageSize: 8,
+        pageSize: 3,
         total: 0
       });
       const loading = ref(false);
@@ -120,7 +93,7 @@
         }).then((response) => {
           loading.value = false;
           const data = response.data;
-          students.value = data.content.list;
+          student.value = data.content.list;
 
           // 重置分页按钮
           pagination.value.current = params.page;
@@ -139,26 +112,6 @@
         });
       };
 
-      // -------- 表单 ---------
-      const student = ref({});
-      const modalVisible = ref(false);
-      const modalLoading = ref(false);
-      const handleModalOk = () => {
-        modalLoading.value = true;
-        setTimeout(() => {
-          modalVisible.value = false;
-          modalLoading.value = false;
-        }, 2000);
-      };
-
-      /**
-       * 编辑
-       */
-      const edit = (record: any) => {
-        modalVisible.value = true;
-        student.value = record;
-      };
-
       onMounted(() => {
         handleQuery({
           page: 1,
@@ -167,18 +120,11 @@
       });
 
       return {
-        students,
+        student,
         pagination,
         columns,
         loading,
-        handleTableChange,
-
-        edit,
-
-        student,
-        modalVisible,
-        modalLoading,
-        handleModalOk
+        handleTableChange
       }
     }
   });
