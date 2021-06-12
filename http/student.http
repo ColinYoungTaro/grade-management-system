@@ -6,6 +6,17 @@ GET http://localhost:8880/student/list
 
 ###
 
-GET http://localhost:8880/student/list?page=1&size=3
+GET http://localhost:8880/student/list?page=1&size=101
+
+###
+
+POST http://localhost:8880/student/save
+Content-Type: application/json
+
+{}
+
+###
+
+DELETE http://localhost:8880/student/delete?userId=11111111111
 
 ###

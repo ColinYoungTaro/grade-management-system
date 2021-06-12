@@ -1,9 +1,12 @@
 package com.yxxt.gradems.req;
 
-public class StudentReq extends PageReq{
+import javax.validation.constraints.NotNull;
+
+public class StudentSaveReq {
+    @NotNull(message = "用户id不能为空")
     private Long userId;
 
-    private Integer rowId;
+    private Long rowId;
 
     private Integer majorId;
 
@@ -23,11 +26,11 @@ public class StudentReq extends PageReq{
         this.userId = userId;
     }
 
-    public Integer getRowId() {
+    public Long getRowId() {
         return rowId;
     }
 
-    public void setRowId(Integer rowId) {
+    public void setRowId(Long rowId) {
         this.rowId = rowId;
     }
 

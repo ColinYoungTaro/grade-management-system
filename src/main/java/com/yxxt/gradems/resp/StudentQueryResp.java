@@ -1,9 +1,9 @@
 package com.yxxt.gradems.resp;
 
-public class StudentResp {
+public class StudentQueryResp {
     private Long userId;
 
-    private Integer rowId;
+    private Long rowId;
 
     private Integer majorId;
 
@@ -23,11 +23,11 @@ public class StudentResp {
         this.userId = userId;
     }
 
-    public Integer getRowId() {
+    public Long getRowId() {
         return rowId;
     }
 
-    public void setRowId(Integer rowId) {
+    public void setRowId(Long rowId) {
         this.rowId = rowId;
     }
 

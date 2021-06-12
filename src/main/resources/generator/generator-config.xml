@@ -40,6 +40,10 @@
                              type="XMLMAPPER"/>
 
 <!--        <table tableName="demo" domainObjectName="Demo"/>-->
-        <table tableName="student"/>
+<!--        <table tableName="student"/>-->
+<!--        <table tableName="teacher"/>-->
+<!--        <table tableName="school_user"/>-->
+
+        <table tableName="student_score"/>
     </context>
 </generatorConfiguration>

@@ -3,7 +3,7 @@ package com.yxxt.gradems.domain;
 public class Student {
     private Long userId;
 
-    private Integer rowId;
+    private Long rowId;
 
     private Integer majorId;
 
@@ -23,11 +23,11 @@ public class Student {
         this.userId = userId;
     }
 
-    public Integer getRowId() {
+    public Long getRowId() {
         return rowId;
     }
 
-    public void setRowId(Integer rowId) {
+    public void setRowId(Long rowId) {
         this.rowId = rowId;
     }
 

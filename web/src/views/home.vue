@@ -1,44 +1,11 @@
 <template>
-  <a-layout>
-    <a-layout-sider width="200" style="background: #fff">
-      <a-menu
-              mode="inline"
-              :style="{ height: '100%', borderRight: 0 }"
-      >
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span><user-outlined />subnav 11111</span>
-          </template>
-          <a-menu-item key="1">option1</a-menu-item>
-          <a-menu-item key="2">option2</a-menu-item>
-          <a-menu-item key="3">option3</a-menu-item>
-          <a-menu-item key="4">option4</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span><laptop-outlined />subnav 2</span>
-          </template>
-          <a-menu-item key="5">option5</a-menu-item>
-          <a-menu-item key="6">option6</a-menu-item>
-          <a-menu-item key="7">option7</a-menu-item>
-          <a-menu-item key="8">option8</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub3">
-          <template #title>
-            <span><notification-outlined />subnav 3</span>
-          </template>
-          <a-menu-item key="9">option9</a-menu-item>
-          <a-menu-item key="10">option10</a-menu-item>
-          <a-menu-item key="11">option11</a-menu-item>
-          <a-menu-item key="12">option12</a-menu-item>
-        </a-sub-menu>
-      </a-menu>
-    </a-layout-sider>
+  <a-layout id="home">
     <a-layout-content
-            :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
+            class="content"
+            :style="note"
     >
       <pre>
-{{student}}
+学生成绩管理系统首页
       </pre>
     </a-layout-content>
   </a-layout>
@@ -51,24 +18,39 @@
 
   export default defineComponent({
     name: 'Home',
-    setup() {
-      const student = ref();
 
-      onMounted(() => {
-        axios.get("/student/list",{
-          params:{
-            page: 1,
-            size: 3000,
+      setup() {
+          const note = ref();
+          note.value = {
+              backgroundImage: 'url(' + require('../assets/home.jpg') + ')',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100%',
+          };
+
+          return {
+              note
           }
-        }).then((response) => {
-          const data = response.data;
-          student.value = data.content.list;
-        });
-      });
-
-      return {
-        student,
       }
-    }
+
   });
 </script>
+
+<style>
+    html,body{height: 100%;}
+
+    #home {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .content{flex: 1;background: white;}
+
+    #components-layout-demo-top-side-2 {
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+    }
+</style>
