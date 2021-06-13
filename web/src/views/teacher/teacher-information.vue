@@ -25,6 +25,9 @@
                                             <a-form-item label="性别">
                                                 <a-input v-model:value="teacher.stringGender" :disabled="true"/>
                                             </a-form-item>
+                                            <a-form-item label="学院">
+                                                <a-input v-model:value="teacher.departmentName" :disabled="true"/>
+                                            </a-form-item>
                                         </a-form>
                                     </a-card>
                                 </a-col>

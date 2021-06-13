@@ -5,6 +5,9 @@ import AdminSchoolUser from '../views/admin/admin-schooluser.vue'
 import AdminStudent from '../views/admin/admin-student.vue'
 import AdminTeacher from '../views/admin/admin-teacher.vue'
 import AdminManager from '../views/admin/admin-manager.vue'
+import AdminCourse from '../views/admin/admin-course.vue'
+import AdminCourseSchedule from '../views/admin/admin-courseschedule.vue'
+import AdminClass from '../views/teacher/admin/admin-class.vue'
 import QueryStudentScore from '../views/student/score/query-score.vue'
 import StudentQueryWholeScore from '../views/student/score/query-whole-score.vue'
 import StudentInformation from '../views/student/student-information.vue'
@@ -55,6 +58,30 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admin/manager',
     name: 'AdminManager',
     component: AdminManager,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/admin/course',
+    name: 'AdminCourse',
+    component: AdminCourse,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/admin/course_schedule',
+    name: 'AdminCourseSchedule',
+    component: AdminCourseSchedule,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/admin/class',
+    name: 'AdminClass',
+    component: AdminClass,
     meta: {
       loginRequire: true
     }

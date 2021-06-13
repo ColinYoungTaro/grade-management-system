@@ -112,6 +112,11 @@ public class StudentService {
         studentMapper.deleteByPrimaryKey(userId);
     }
 
+    /**
+     * 获取学生信息
+     * @param req
+     * @return
+     */
     public StudentInformationQueryResp getStudentInformation(SchoolStudentUserQueryReq req) {
         Student  student = studentMapper.selectByPrimaryKey(req.getUserId());
         SchoolUser studentUser = studentUserMapper.selectByPrimaryKey(req.getUserId());

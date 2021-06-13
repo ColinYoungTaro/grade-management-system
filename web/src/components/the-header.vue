@@ -12,20 +12,18 @@
             <a-menu-item key="/admin/schooluser"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
                 <router-link to="/admin/schooluser">用户管理</router-link>
             </a-menu-item>
+            <a-menu-item key="/admin/course"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
+                <router-link to="/admin/course">课程管理</router-link>
+            </a-menu-item>
             <a-menu-item key="/admin/schooluser"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
                 <router-link to="/admin/schooluser">审核申请</router-link>
             </a-menu-item>
+
             <a-menu-item key="/teacher/information"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
                 <router-link to="/teacher/information">个人信息</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">课程表</router-link>
-            </a-menu-item>
-            <a-menu-item key="/about"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
-                <router-link to="/about">开设课程</router-link>
-            </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">成绩录入</router-link>
+            <a-menu-item key="/admin/class"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
+                <router-link to="/admin/class">教学管理</router-link>
             </a-menu-item>
             <a-menu-item key="/student/information"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
                 <router-link to="/student/information">个人信息</router-link>
