@@ -1,6 +1,7 @@
-package com.yxxt.gradems.req;
+package com.yxxt.gradems.domain;
 
-public class StudentScoreQueryReq  extends PageReq{
+public class StudentScore {
+    private Long rowId;
 
     private Long studentId;
 
@@ -10,11 +11,13 @@ public class StudentScoreQueryReq  extends PageReq{
 
     private Integer score;
 
-    private Integer year;
+    public Long getRowId() {
+        return rowId;
+    }
 
-    private Integer term;
-
-    private Short courseType;
+    public void setRowId(Long rowId) {
+        this.rowId = rowId;
+    }
 
     public Long getStudentId() {
         return studentId;
@@ -48,29 +51,18 @@ public class StudentScoreQueryReq  extends PageReq{
         this.score = score;
     }
 
-    public Integer getYear() {
-        return year;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", rowId=").append(rowId);
+        sb.append(", studentId=").append(studentId);
+        sb.append(", courseUid=").append(courseUid);
+        sb.append(", classIndex=").append(classIndex);
+        sb.append(", score=").append(score);
+        sb.append("]");
+        return sb.toString();
     }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public Integer getTerm() {
-        return term;
-    }
-
-    public void setTerm(Integer term) {
-        this.term = term;
-    }
-
-    public Short getCourseType() {
-        return courseType;
-    }
-
-    public void setCourseType(Short courseType) {
-        this.courseType = courseType;
-    }
-
-
 }

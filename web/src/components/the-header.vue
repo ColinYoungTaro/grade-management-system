@@ -15,8 +15,8 @@
             <a-menu-item key="/admin/schooluser"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
                 <router-link to="/admin/schooluser">审核申请</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">个人信息</router-link>
+            <a-menu-item key="/teacher/information"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
+                <router-link to="/teacher/information">个人信息</router-link>
             </a-menu-item>
             <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
                 <router-link to="/admin/schooluser">课程表</router-link>
@@ -25,25 +25,19 @@
                 <router-link to="/about">开设课程</router-link>
             </a-menu-item>
             <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">班级管理</router-link>
-            </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
                 <router-link to="/admin/schooluser">成绩录入</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">个人信息</router-link>
+            <a-menu-item key="/student/information"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
+                <router-link to="/student/information">个人信息</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/about">课程表</router-link>
-            </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/about">选课</router-link>
+            <a-menu-item key="/select/all/course"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
+                <router-link to="/select/all/course">选课</router-link>
             </a-menu-item>
             <a-menu-item key="/query/student/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
                 <router-link to="/query/student/score">成绩查询</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">成绩详情</router-link>
+            <a-menu-item key="/query/student/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
+                <router-link to="/query/student/score">成绩复核申请</router-link>
             </a-menu-item>
             <a-menu-item key="/about">
                 <router-link to="/about">关于我们</router-link>
@@ -108,7 +102,7 @@
 
             // 请求登录的用户
             const loginUser = ref({
-                userId: 3170100002,
+                userId: 3120420000,
                 passwordEncode: "123456"
             });
             const loginModalVisible = ref(false);

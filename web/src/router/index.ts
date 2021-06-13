@@ -7,6 +7,12 @@ import AdminTeacher from '../views/admin/admin-teacher.vue'
 import AdminManager from '../views/admin/admin-manager.vue'
 import QueryStudentScore from '../views/student/score/query-score.vue'
 import StudentQueryWholeScore from '../views/student/score/query-whole-score.vue'
+import StudentInformation from '../views/student/student-information.vue'
+import SelectMajorCourse from '../views/student/course/select-major-course.vue'
+import SelectGeneralCourse from '../views/student/course/select-general-course.vue'
+import SelectALLCourse from '../views/student/course/select-all-course.vue'
+import TeacherInformation from '../views/teacher/teacher-information.vue'
+
 import store from "@/store";
 import {Tool} from "@/util/tool";
 
@@ -62,9 +68,49 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/student/information',
+    name: 'StudentInformation',
+    component: StudentInformation,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/select/all/course',
+    name: 'SelectALLCourse',
+    component: SelectALLCourse,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/select/major/course',
+    name: 'SelectMajorCourse',
+    component: SelectMajorCourse,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/select/general/course',
+    name: 'SelectGeneralCourse',
+    component: SelectGeneralCourse,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
     path: '/student/query/whole/score',
     name: 'StudentQueryWholeScore',
     component: StudentQueryWholeScore,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
+    path: '/teacher/information',
+    name: 'TeacherInformation',
+    component: TeacherInformation,
     meta: {
       loginRequire: true
     }

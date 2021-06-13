@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxxt.gradems.mapper.MajorDepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.yxxt.gradems.domain.MajorDepartment">
+    <id column="row_id" jdbcType="BIGINT" property="rowId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    row_id, major_id, department_id, `year`
+  </sql>
+  <select id="selectByExample" parameterType="com.yxxt.gradems.domain.MajorDepartmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from major_department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from major_department
+    where row_id = #{rowId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from major_department
+    where row_id = #{rowId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yxxt.gradems.domain.MajorDepartmentExample">
+    delete from major_department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yxxt.gradems.domain.MajorDepartment">
+    insert into major_department (row_id, major_id, department_id, 
+      `year`)
+    values (#{rowId,jdbcType=BIGINT}, #{majorId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
+      #{year,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxxt.gradems.domain.MajorDepartment">
+    insert into major_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rowId != null">
+        row_id,
+      </if>
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="year != null">
+        `year`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rowId != null">
+        #{rowId,jdbcType=BIGINT},
+      </if>
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yxxt.gradems.domain.MajorDepartmentExample" resultType="java.lang.Long">
+    select count(*) from major_department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update major_department
+    <set>
+      <if test="record.rowId != null">
+        row_id = #{record.rowId,jdbcType=BIGINT},
+      </if>
+      <if test="record.majorId != null">
+        major_id = #{record.majorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentId != null">
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.year != null">
+        `year` = #{record.year,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update major_department
+    set row_id = #{record.rowId,jdbcType=BIGINT},
+      major_id = #{record.majorId,jdbcType=INTEGER},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      `year` = #{record.year,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxxt.gradems.domain.MajorDepartment">
+    update major_department
+    <set>
+      <if test="majorId != null">
+        major_id = #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        `year` = #{year,jdbcType=INTEGER},
+      </if>
+    </set>
+    where row_id = #{rowId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxxt.gradems.domain.MajorDepartment">
+    update major_department
+    set major_id = #{majorId,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      `year` = #{year,jdbcType=INTEGER}
+    where row_id = #{rowId,jdbcType=BIGINT}
+  </update>
+</mapper>

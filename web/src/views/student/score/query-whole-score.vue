@@ -4,96 +4,116 @@
         <a-layout-content
                 :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         >
-            <p>
-                <a-form layout="inline" :model="param">
-                    <a-form-item>
-                        <a-input v-model:value="param.userId" placeholder="学号">
-                        </a-input>
-                    </a-form-item>
-                    <a-form-item>
-                        <a-button type="primary" @click="handleQuery({page: 1, size: pagination.pageSize})">
-                            查询
-                        </a-button>
-                    </a-form-item>
-                    <a-form-item>
-                        <a-button type="primary" @click="add()">
-                            新增
-                        </a-button>
-                    </a-form-item>
-                </a-form>
-            </p>
+
+            <div style="background-color: #ffffff; padding: 5px">
+                <a-row :gutter="0">
+                    <a-cow>
+   <pre>
+
+   </pre>
+                    </a-cow>
+                    <a-cow >
+                        <p>
+                            <a-form layout="inline" :model="param">
+                                <a-form-item>
+                                    <a-input v-model:value="param.courseUid" placeholder="课程号" >
+                                    </a-input>
+                                </a-form-item>
+                                <a-form-item>
+                                    <a-button type="primary" @click="handleQuery({page: 1, size: pagination.pageSize})">
+                                        查询
+                                    </a-button>
+                                </a-form-item>
+                            </a-form>
+                        </p>
+                    </a-cow>
+                </a-row>
+                <a-row :gutter="0">
+                    <a-col :span="2.5" >
+                        <a-card :bordered="false" >
+                            <p>
+                                <a-button @click="handleQuery">
+                                    在校成绩
+                                </a-button>
+                            </p>
+                        </a-card>
+                    </a-col>
+
+                    <a-col :span="3" >
+                        <a-card :bordered="false" >
+                            <p>
+                                <a-dropdown-button>
+                                    按学年查询
+                                    <template #overlay>
+                                        <a-menu  @click="handleYearMenuClick">
+                                            <a-menu-item key="1">
+                                                <UserOutlined />
+                                                第一学年
+                                            </a-menu-item>
+                                            <a-menu-item key="2">
+                                                <UserOutlined />
+                                                第二学年
+                                            </a-menu-item>
+                                            <a-menu-item key="3">
+                                                <UserOutlined />
+                                                第三学年
+                                            </a-menu-item>
+                                            <a-menu-item key="4">
+                                                <UserOutlined />
+                                                第四学年
+                                            </a-menu-item>
+                                        </a-menu>
+                                    </template>
+                                </a-dropdown-button>
+                            </p>
+                        </a-card>
+                    </a-col>
+                    <a-col :span="3">
+                        <a-card :bordered="false">
+                            <p>
+                                <a-dropdown-button >
+                                    按课程类型查询
+                                    <template #overlay>
+                                        <a-menu  @click="handleCourseTypeMenuClick">
+                                            <a-menu-item key="0">
+                                                <UserOutlined />
+                                                通识课程
+                                            </a-menu-item>
+                                            <a-menu-item key="1">
+                                                <UserOutlined />
+                                                专业课程
+                                            </a-menu-item>
+                                        </a-menu>
+                                    </template>
+                                </a-dropdown-button>
+                            </p>
+                        </a-card>
+                    </a-col>
+                </a-row>
+            </div>
+
             <a-table
                     :columns="columns"
                     :row-key="record => record.id"
-                    :data-source="students"
+                    :data-source="course_scores"
                     :pagination="pagination"
                     :loading="loading"
                     @change="handleTableChange"
             >
-                <template v-slot:action="{ text, record }">
-                    <a-space size="small">
-                        <a-button type="primary" @click="edit(record)">
-                            编辑
-                        </a-button>
-                        <a-popconfirm
-                                title="是否确认删除?"
-                                ok-text="是"
-                                cancel-text="否"
-                                @confirm="handleDelete(record.userId)"
-                        >
-                            <a-button type="danger">
-                                删除
-                            </a-button>
-                        </a-popconfirm>
-                    </a-space>
-                </template>
             </a-table>
         </a-layout-content>
     </a-layout>
-    <a-modal
-            title="学生表单"
-            v-model:visible="modalVisible"
-            :confirm-loading="modalLoading"
-            @ok="handleModalOk"
-    >
-        <a-form :model="student" :label-col="{ span: 5 }" :wrapper-col="{ span: 18 }">
-            <a-form-item label="学号">
-                <a-input v-model:value="student.userId" :disabled="!!student.rowId"/>
-            </a-form-item>
-            <a-form-item label="名字">
-                <a-input v-model:value="student.userName" />
-            </a-form-item>
-            <a-form-item label="密码" v-show="!student.rowId">
-                <a-input v-model:value="student.passwordEncode" type="password"/>
-            </a-form-item>
-            <a-form-item label="性别">
-                <a-input v-model:value="student.gender" />
-            </a-form-item>
-            <a-form-item label="年级">
-                <a-input v-model:value="student.grade" />
-            </a-form-item>
-            <a-form-item label="学院">
-                <a-input v-model:value="student.departmentId" />
-            </a-form-item>
-            <a-form-item label="专业">
-                <a-input v-model:value="student.majorId" />
-            </a-form-item>
-            <a-form-item label="学籍状态">
-                <a-input v-model:value="student.status" />
-            </a-form-item>
-        </a-form>
-    </a-modal>
 </template>
 
+
 <script lang="ts">
-    import { defineComponent, onMounted, ref } from 'vue';
+    import { defineComponent, onMounted, ref, computed } from 'vue';
     import TheStudentScoreSider from '@/components/the-student-score-sider.vue';
     import axios from 'axios';
     import { message } from 'ant-design-vue';
     import {Tool} from "@/util/tool";
+    import store from "@/store";
 
-    declare let hexMd5: any;
-    declare let KEY: any;
 
     export default defineComponent({
         name: 'StudentQueryWholeScore',
@@ -101,10 +121,15 @@
             TheStudentScoreSider,
         },
         setup() {
+
+            const user = computed(() => store.state.user);
+
             const param = ref();
             param.value = {};
 
-            const students = ref();
+
+
+            const course_scores = ref();
 
             const pagination = ref({
                 current: 1,
@@ -115,63 +140,48 @@
 
             const columns = [
                 {
-                    title: '学号',
-                    key: 'userId',
-                    dataIndex: 'userId'
+                    title: '选课课号',
+                    key: 'courseUid',
+                    dataIndex: 'courseUid'
                 },
                 {
-                    title: '名字',
-                    dataIndex: 'userName'
+                    title: '课程名称',
+                    dataIndex: 'courseName'
                 },
                 {
-                    title: '密码',
-                    key: 'passwordEncode',
-                    dataIndex: 'passwordEncode'
+                    title: '成绩',
+                    dataIndex: 'score'
                 },
                 {
-                    title: '性别',
-                    dataIndex: 'gender'
+                    title: '学分',
+                    dataIndex: 'credit'
                 },
                 {
-                    title: '年级',
-                    dataIndex: 'grade'
+                    title: '绩点',
+                    dataIndex: 'gpa'
                 },
-                {
-                    title: '学院',
-                    dataIndex: 'departmentId'
-                },
-                {
-                    title: '专业',
-                    dataIndex: 'majorId'
-                },
-                {
-                    title: '学籍状态',
-                    dataIndex: 'status'
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    slots: { customRender: 'action' }
-                }
             ];
+
+            var query_year = 0;
 
             /**
              * 数据查询
              **/
             const handleQuery = (params: any) => {
                 loading.value = true;
-                students.value = [];
-                axios.get("/schooluser/student/list", {
+                course_scores.value = [];
+                axios.get("/studentscore/whole/list", {
                     params :{
                         page: params.page,
                         size: params.size,
-                        userId: param.value.userId
+                        studentId: user.value.userId,
+                        courseUid: param.value.courseUid
                     }
                 }).then((response) => {
                     loading.value = false;
                     const data = response.data;
                     if (data.success) {
-                        students.value = data.content.list;
+                        course_scores.value = data.content.list;
 
                         // 重置分页按钮
                         pagination.value.current = params.page;
@@ -181,6 +191,55 @@
                     }
                 });
             };
+
+            const handleYearMenuClick = (e: any) => {
+                loading.value = true;
+                course_scores.value = [];
+
+                axios.get("/studentscore/single/year/list", {
+                    params :{
+                        year: e.key,
+                        studentId: user.value.userId,
+                    }
+                }).then((response) => {
+                    loading.value = false;
+                    const data = response.data;
+                    if (data.success) {
+                        course_scores.value = data.content.list;
+
+                        // 重置分页按钮
+                        pagination.value.current = 1;
+                        pagination.value.total = data.content.total;
+                    } else {
+                        message.error(data.message);
+                    }
+                });
+            };
+
+            const handleCourseTypeMenuClick = (e: any) => {
+                loading.value = true;
+                course_scores.value = [];
+
+                axios.get("/studentscore/course/type/list", {
+                    params :{
+                        courseType: e.key,
+                        studentId: user.value.userId,
+                    }
+                }).then((response) => {
+                    loading.value = false;
+                    const data = response.data;
+                    if (data.success) {
+                        course_scores.value = data.content.list;
+
+                        // 重置分页按钮
+                        pagination.value.current = 1;
+                        pagination.value.total = data.content.total;
+                    } else {
+                        message.error(data.message);
+                    }
+                });
+            };
+
 
             /**
              * 表格点击页码时触发
@@ -193,65 +252,6 @@
                 });
             };
 
-            // -------- 表单 ---------
-            const student = ref();
-            const modalVisible = ref(false);
-            const modalLoading = ref(false);
-            const handleModalOk = () => {
-                modalLoading.value = true;
-
-                student.value.passwordEncode = hexMd5(student.value.passwordEncode + KEY);
-
-                axios.post("/schooluser/student/save", student.value).then((response) => {
-                    modalLoading.value = false;
-                    const data = response.data; // data = commonResp
-                    if (data.success) {
-                        modalVisible.value = false;
-
-                        // 重新加载列表
-                        handleQuery({
-                            page: pagination.value.current,
-                            size: pagination.value.pageSize,
-                        });
-                    } else{
-                        message.error(data.message);
-                    }
-                });
-            };
-
-            /**
-             * 编辑
-             */
-            const edit = (record: any) => {
-                modalVisible.value = true;
-                student.value = Tool.copy(record);
-                //student.value = record;
-            };
-
-            /**
-             * 新增
-             */
-            const add = () => {
-                modalVisible.value = true;
-                student.value = {};
-            };
-
-            /**
-             * 删除
-             */
-            const handleDelete = (userId: number) => {
-                axios.delete("/schooluser/delete/" + userId).then((response) => {
-                    const data = response.data; // data = commonResp
-                    if (data.success) {
-                        // 重新加载列表
-                        handleQuery({
-                            page: pagination.value.current,
-                            size: pagination.value.pageSize,
-                        });
-                    }
-                });
-            };
-
             onMounted(() => {
                 handleQuery({
                     page: 1,
@@ -261,22 +261,18 @@
 
             return {
                 param,
-                students,
                 pagination,
                 columns,
                 loading,
                 handleTableChange,
                 handleQuery,
+                course_scores,
+                user,
 
-                edit,
-                add,
-
-                student,
-                modalVisible,
-                modalLoading,
-                handleModalOk,
-                handleDelete
+                handleYearMenuClick,
+                handleCourseTypeMenuClick,
             }
         }
     });
 </script>
+

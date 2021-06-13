@@ -1,4 +1,4 @@
-GET http://localhost:8880/student/list?userId=3180104668
+GET http://localhost:8880/student/information?userId=3170100002
 
 ###
 

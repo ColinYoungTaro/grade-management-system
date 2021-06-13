@@ -8,7 +8,9 @@ const store = createStore({
     user: SessionStorage.get(USER) || {},
     managerRoleId: 1,
     teacherRoleId: 2,
-    studentRoleId: 3
+    studentRoleId: 3,
+    currentYear: 21,
+    currentTerm: 3,
   },
   mutations: {
     setUser (state, user) {

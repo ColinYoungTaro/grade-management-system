@@ -44,6 +44,13 @@
 <!--        <table tableName="teacher"/>-->
 <!--        <table tableName="school_user"/>-->
 
-        <table tableName="student_score"/>
+<!--        <table tableName="student_score"/>-->
+<!--        <table tableName="course"/>-->
+<!--        <table tableName="major"/>-->
+<!--        <table tableName="department"/>-->
+<!--        <table tableName="course_schedule"/>-->
+<!--        <table tableName="training_program"/>-->
+<!--        <table tableName="major_department"/>-->
+        <table tableName="course_selection"/>
     </context>
 </generatorConfiguration>
