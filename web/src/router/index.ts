@@ -8,7 +8,7 @@ import AdminManager from '../views/admin/admin-manager.vue'
 import AdminCourse from '../views/admin/admin-course.vue'
 import AdminCourseSchedule from '../views/admin/admin-courseschedule.vue'
 import AdminClass from '../views/teacher/admin/admin-class.vue'
-import QueryStudentScore from '../views/student/score/query-score.vue'
+import AnalyzeScore from '../views/student/score/analyze-score.vue'
 import StudentQueryWholeScore from '../views/student/score/query-whole-score.vue'
 import StudentInformation from '../views/student/student-information.vue'
 import SelectMajorCourse from '../views/student/course/select-major-course.vue'
@@ -87,9 +87,9 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/query/student/score',
-    name: 'QueryStudentScore',
-    component: QueryStudentScore,
+    path: '/student/analysis/score',
+    name: 'AnalyzeScore',
+    component: AnalyzeScore,
     meta: {
       loginRequire: true
     }

@@ -31,8 +31,8 @@
             <a-menu-item key="/select/all/course"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
                 <router-link to="/select/all/course">选课</router-link>
             </a-menu-item>
-            <a-menu-item key="/query/student/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/query/student/score">成绩查询</router-link>
+            <a-menu-item key="/student/query/whole/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
+                <router-link to="/student/query/whole/score">成绩查询</router-link>
             </a-menu-item>
             <a-menu-item key="/query/student/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
                 <router-link to="/query/student/score">成绩复核申请</router-link>
