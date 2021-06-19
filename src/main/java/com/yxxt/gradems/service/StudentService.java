@@ -325,4 +325,8 @@ public class StudentService {
         }
     }
 
+    public Student getStudentById(Long studentId){
+        return studentMapper.selectByPrimaryKey(studentId);
+    }
+
 }

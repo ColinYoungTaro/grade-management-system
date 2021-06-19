@@ -50,4 +50,26 @@ public class CommonResp<T> {
         sb.append('}');
         return sb.toString();
     }
+    public static<T> CommonResp<T> error(String msg){
+        CommonResp<T> resp = new CommonResp<>();
+        resp.setContent(null);
+        resp.setMessage(msg);
+        resp.setSuccess(false);
+        return resp;
+    }
+    public static<T> CommonResp<T> error(String msg,T content){
+        CommonResp<T> resp = new CommonResp<>();
+        resp.setContent(content);
+        resp.setMessage(msg);
+        resp.setSuccess(false);
+        return resp;
+    }
+
+    public static<T> CommonResp<T> success(String msg,T content){
+        CommonResp<T> resp = new CommonResp<>();
+        resp.setContent(content);
+        resp.setMessage(msg);
+        resp.setSuccess(true);
+        return resp;
+    }
 }
