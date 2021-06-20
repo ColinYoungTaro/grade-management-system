@@ -185,7 +185,7 @@ public class AppealController {
         else{
             appealService.adminRefuseAppeal(req.getRowId());
         }
-        return CommonResp.success("申请已提交","同意意见：" + String.valueOf(req.isAgree());
+        return CommonResp.success("申请已提交","同意意见：" + String.valueOf(req.isAgree()));
     }
 
 }
