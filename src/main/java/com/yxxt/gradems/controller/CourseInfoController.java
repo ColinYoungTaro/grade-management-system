@@ -28,8 +28,8 @@ public class CourseInfoController {
     @Resource
     private SchoolUserService schoolUserService;
 
-    @RequestMapping("/training_program")
-    public CommonResp getTrainingProgramCourses(int majorId){
+    @RequestMapping("/training_program/{majorId}")
+    public CommonResp getTrainingProgramCourses(@PathVariable("majorId")Integer majorId){
         List<Course> courses = courseInfoService.getTrainingProgram(majorId);
         if(courses == null){
             return CommonResp.error("没有查询到相关信息");
@@ -39,8 +39,8 @@ public class CourseInfoController {
         }
     }
 
-    @RequestMapping ("/recommandedClass/{studentId}")
-    public CommonResp getRecommandedClasses(@PathVariable("studentId") Long studentId){
+    @RequestMapping ("/recommendedClass/{studentId}")
+    public CommonResp getRecommendedClasses(@PathVariable("studentId") Long studentId){
 
         Student student = studentService.getStudentById(studentId);
         if(student == null){

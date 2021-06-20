@@ -180,7 +180,7 @@ public class AppealController {
         boolean isAgree = req.isAgree();
         if(isAgree){
             appealService.adminVerifyAppeal(req.getRowId());
-            ScoreAppeal appeal = appealService.getAppeal(req.getRowId());
+            // ScoreAppeal appeal = appealService.getAppeal(req.getRowId());
         }
         else{
             appealService.adminRefuseAppeal(req.getRowId());

@@ -9,14 +9,70 @@ Content-Type: application/json
     "classIndex":1
 }
 
-
-
 ### 错误的用法 没有分数记录
+
 POST http://localhost:8880/appeal/student_appeal
 Content-Type: application/json
 
 {
-    "studentId":3120420000,
+    "studentId":3120100001,
     "courseUid":"21120062",
     "classIndex":1
 }
+
+### !!!申请过程内部有个状态机
+### 不符合要求的申请都会被拒绝
+
+### 老师不同意申请
+POST http://localhost:8880/appeal/appeal_handle/teacher
+Content-Type: application/json
+
+{
+    "rowId":2,
+    "agree":false
+}
+
+### 老师同意申请
+POST http://localhost:8880/appeal/appeal_handle/teacher
+Content-Type: application/json
+
+{
+    "rowId":2,
+    "agree":true,
+    "score":99
+}
+
+### 管理员同意申请
+POST http://localhost:8880/appeal/appeal_handle/admin
+Content-Type: application/json
+
+{
+    "rowId":2,
+    "agree":true
+}
+
+###  管理员拒绝申请
+POST http://localhost:8880/appeal/appeal_handle/admin
+Content-Type: application/json
+
+{
+    "rowId":2,
+    "agree":false
+}
+
+### 获得老师开的课程的申诉记录列表
+GET http://localhost:8880/appeal/teacher_appeals/10002
+Content-Type: application/json
+
+### 学生申诉记录列表
+GET http://localhost:8880/appeal/student_appeals/3120100001
+
+
+### 不存在的学生
+### 返回空(TODO:可以改成返回错误
+GET http://localhost:8880/appeal/student_appeals/3120100
+
+### 所有申诉
+GET http://localhost:8880/appeal/appeals
+
+

@@ -1,6 +1,8 @@
 package com.yxxt.gradems.service;
 
-import com.mysql.cj.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.yxxt.gradems.aspect.LogAspect;
 import com.yxxt.gradems.config.VarConfig;
 import com.yxxt.gradems.domain.*;
 import com.yxxt.gradems.exception.BusinessException;
@@ -8,11 +10,8 @@ import com.yxxt.gradems.exception.BusinessExceptionCode;
 import com.yxxt.gradems.mapper.CourseScheduleMapper;
 import com.yxxt.gradems.mapper.ScoreAppealMapper;
 import com.yxxt.gradems.mapper.StudentScoreMapper;
-import org.aspectj.weaver.ast.Var;
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import ch.qos.logback.classic.Logger;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -21,6 +20,7 @@ class AppealStateMachine{
     private static HashMap<Integer,List<Integer>> transitionMap;
     
     static {
+        transitionMap = new HashMap<>();
         transitionMap.put(VarConfig.APPEAL_STATUS_INITIAL, Arrays.asList(
                 VarConfig.APPEAL_STATUS_REFUSED_BY_TEACHER,
                 VarConfig.APPEAL_STATUS_VERIFIED_BY_TEACHER)
@@ -55,6 +55,8 @@ public class AppealService {
     @Resource
     private CourseScheduleMapper courseScheduleMapper;
 
+
+    private final static Logger LOG = LoggerFactory.getLogger(LogAspect.class);
     /**
      * register score
      * @param studentId
@@ -133,6 +135,7 @@ public class AppealService {
     private void updateAppeal(Long rowId,int state) {
         ScoreAppeal appeal = scoreAppealMapper.selectByPrimaryKey(rowId);
         if(appeal == null){
+            LOG.error("appeal not found rowId = " + rowId.toString());
             throw new BusinessException(BusinessExceptionCode.KEY_NOT_EXIST);
         }
         if(!AppealStateMachine.validTransition(appeal.getStatus(),state)){

@@ -47,6 +47,9 @@ public class ScoreAnalyseService {
         example.createCriteria().andScoreLessThan(60);
         List<StudentScore> scoreRecordList = scoreMapper.selectByExample(example);
         List<String> courseUidList = scoreRecordList.stream().map(StudentScore::getCourseUid).collect(Collectors.toList());
+        if(courseUidList.size() == 0){
+            return new ArrayList<Course>();
+        }
         CourseExample courseExample = new CourseExample();
         courseExample.createCriteria().andCourseUidIn(courseUidList);
         return courseMapper.selectByExample(courseExample);
@@ -72,11 +75,10 @@ public class ScoreAnalyseService {
         float accScores = 0f;
         for(StudentScore score : studentScores){
             Course course = courseMapper.selectByPrimaryKey(score.getCourseUid());
-            float tmpScore = course.getCredit();
-            accScores += tmpScore;
-            credits += score.getScore();
+            accScores += score.getScore() * course.getCredit();
+            credits += course.getCredit();
         }
-        return accScores / credits;
+        return credits == 0f ? 0 : accScores / credits;
     }
 
     /**
@@ -166,7 +168,9 @@ public class ScoreAnalyseService {
         courseSelectionExample.createCriteria().andStudentIdEqualTo(studentId);
         List<CourseSelection> records = courseSelectionMapper.selectByExample(courseSelectionExample);
         List<String> courseUids = records.stream().map(CourseSelection::getCourseUid).collect(Collectors.toList());
-
+        if(courseUids.size() == 0){
+            return new ArrayList<Course>();
+        }
         CourseExample courseExample = new CourseExample();
         courseExample.createCriteria().andCourseUidIn(courseUids);
         List<Course> selectedCourseList = courseMapper.selectByExample(courseExample);

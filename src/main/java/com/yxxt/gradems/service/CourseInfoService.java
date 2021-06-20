@@ -30,7 +30,10 @@ public class CourseInfoService {
         TrainingProgramExample example = new TrainingProgramExample();
         example.createCriteria().andMajorIdEqualTo(majorId);
         List<TrainingProgram> courseItemList =  trainingProgramMapper.selectByExample(example);
-        example.clear();
+        // 没有关于培养方案的信息
+        if(courseItemList.size() == 0){
+            return null;
+        }
         List<String> uids = new ArrayList<>();
         for(TrainingProgram record : courseItemList){
             String courseUid = record.getCourseUid();

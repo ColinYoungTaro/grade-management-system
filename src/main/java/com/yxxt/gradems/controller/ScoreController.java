@@ -32,10 +32,11 @@ public class ScoreController {
         List<Course> failedCourses = scoreAnalyseService.getFailedCourses();
         AnalysisResp resp = new AnalysisResp();
         resp.setCredit(credit);
+        resp.setGPA(gpa);
         resp.setRank(rankPair.fst);
         resp.setTotal(rankPair.snd);
         resp.setFailedCourses(failedCourses);
-        return CommonResp.success("",resp);
+        return CommonResp.success("获得成绩分析成功",resp);
     }
 
     @PostMapping("/analysis/class")

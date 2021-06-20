@@ -1,0 +1,14 @@
+### 查看培养方案的课程信息 传入majorId作为pathVar
+POST http://localhost:8880/course_info/training_program/12004
+Content-Type: application/json
+
+### 查看培养方案的课程信息 传入majorId作为pathVar
+POST http://localhost:8880/course_info/training_program/124
+Content-Type: application/json
+
+
+###  获得学生所在专业培养方案中
+###  当前可以选课的所有课程安排
+###  返回一个选课列表 每个元素包括course信息 老师的user信息 以及schedule信息
+
+GET http://localhost:8880/course_info/recommendedClass/3120100001
