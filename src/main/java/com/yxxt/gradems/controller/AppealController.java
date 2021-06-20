@@ -49,6 +49,7 @@ class ScoreInfoReq{
 class AppealReq{
     Long rowId;
     Short score;
+    boolean agree;
 
     public boolean isAgree() {
         return agree;
@@ -57,8 +58,6 @@ class AppealReq{
     public void setAgree(boolean agree) {
         this.agree = agree;
     }
-
-    boolean agree;
 
     public Long getRowId() {
         return rowId;
@@ -97,12 +96,13 @@ public class AppealController {
      * @param req
      */
     @PostMapping("/student_appeal")
-    public void appealScore(@RequestBody ScoreInfoReq req){
+    public CommonResp appealScore(@RequestBody ScoreInfoReq req){
         appealService.appealScore(
                 req.getStudentId(),
                 req.getCourseUid(),
                 req.getClassIndex()
         );
+        return CommonResp.success("成功提交申诉",null);
     }
 
     private List<AppealResp> wrapAppeals(List<ScoreAppeal> appeals){
@@ -164,7 +164,7 @@ public class AppealController {
      * @param req
      */
     @PostMapping(value="appeal_handle/teacher")
-    public void teacherHandleAppeal(@RequestBody AppealReq req){
+    public CommonResp teacherHandleAppeal(@RequestBody AppealReq req){
         boolean isAgree = req.isAgree();
         if(isAgree){
             appealService.teacherVerifyAppeal(req.getRowId(),req.getScore());
@@ -172,10 +172,11 @@ public class AppealController {
         else{
             appealService.teacherRefuseAppeal(req.getRowId());
         }
+        return CommonResp.success("申请已提交","同意意见：" + String.valueOf(req.isAgree()));
     }
 
     @PostMapping(value="appeal_handle/admin")
-    public void adminHandleAppeal(@RequestBody AppealReq req){
+    public CommonResp adminHandleAppeal(@RequestBody AppealReq req){
         boolean isAgree = req.isAgree();
         if(isAgree){
             appealService.adminVerifyAppeal(req.getRowId());
@@ -184,6 +185,7 @@ public class AppealController {
         else{
             appealService.adminRefuseAppeal(req.getRowId());
         }
+        return CommonResp.success("申请已提交","同意意见：" + String.valueOf(req.isAgree());
     }
 
 }

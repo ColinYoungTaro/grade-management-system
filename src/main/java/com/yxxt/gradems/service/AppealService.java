@@ -1,5 +1,6 @@
 package com.yxxt.gradems.service;
 
+import com.mysql.cj.log.Log;
 import com.yxxt.gradems.config.VarConfig;
 import com.yxxt.gradems.domain.*;
 import com.yxxt.gradems.exception.BusinessException;
@@ -8,13 +9,17 @@ import com.yxxt.gradems.mapper.CourseScheduleMapper;
 import com.yxxt.gradems.mapper.ScoreAppealMapper;
 import com.yxxt.gradems.mapper.StudentScoreMapper;
 import org.aspectj.weaver.ast.Var;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import ch.qos.logback.classic.Logger;
 
 import javax.annotation.Resource;
 import java.util.*;
 
 class AppealStateMachine{
     private static HashMap<Integer,List<Integer>> transitionMap;
+    
     static {
         transitionMap.put(VarConfig.APPEAL_STATUS_INITIAL, Arrays.asList(
                 VarConfig.APPEAL_STATUS_REFUSED_BY_TEACHER,
@@ -84,6 +89,7 @@ public class AppealService {
                 .andStudentIdEqualTo(studentId);
         List<StudentScore> list = studentScoreMapper.selectByExample(example);
         if(list.size() != 1){
+            //lisSystem.out.println("list.size=" + String.valueOf(list.size()));
             throw new BusinessException(BusinessExceptionCode.KEY_NOT_EXIST);
         }
         StudentScore record = list.get(0);
@@ -108,17 +114,29 @@ public class AppealService {
         scoreAppealRecord.setStatus(VarConfig.APPEAL_STATUS_INITIAL);
         scoreAppealRecord.setCourseUid(courseUid);
         scoreAppealRecord.setClassIndex(classIndex);
+        StudentScoreExample studentScoreExample = new StudentScoreExample();
+        studentScoreExample.createCriteria()
+            .andCourseUidEqualTo(courseUid)
+            .andClassIndexEqualTo(classIndex)
+            .andStudentIdEqualTo(studentId);
+        List<StudentScore> record = studentScoreMapper.selectByExample(studentScoreExample);
+        if(record.size() == 0){
+            throw new BusinessException(BusinessExceptionCode.KEY_NOT_EXIST);
+        }
+        // TODO: 存在多条记录
+        int score = record.get(0).getScore();
+        scoreAppealRecord.setOriginalScore((short)score);
         scoreAppealMapper.insert(scoreAppealRecord);
     }
 
 
     private void updateAppeal(Long rowId,int state) {
         ScoreAppeal appeal = scoreAppealMapper.selectByPrimaryKey(rowId);
-        if(!AppealStateMachine.validTransition(appeal.getStatus(),state)){
-            throw new BusinessException(BusinessExceptionCode.INVALID_OPERATION);
-        }
         if(appeal == null){
             throw new BusinessException(BusinessExceptionCode.KEY_NOT_EXIST);
+        }
+        if(!AppealStateMachine.validTransition(appeal.getStatus(),state)){
+            throw new BusinessException(BusinessExceptionCode.INVALID_OPERATION);
         }
         appeal.setStatus(state);
         scoreAppealMapper.updateByPrimaryKeySelective(appeal);
