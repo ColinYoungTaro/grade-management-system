@@ -358,4 +358,8 @@ public class SchoolUserService {
         }
     }
 
+    public SchoolUser getSchoolUser(Long userId){
+        return schooluserMapper.selectByPrimaryKey(userId);
+    }
+
 }

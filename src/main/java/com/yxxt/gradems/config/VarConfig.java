@@ -27,6 +27,11 @@ public class VarConfig {
     public static Double EIGHTH_GPA = 2.0;
 
 
+    public static final int APPEAL_STATUS_INITIAL = 0;
+    public static final int APPEAL_STATUS_REFUSED_BY_TEACHER = 1;
+    public static final int APPEAL_STATUS_REFUSED_BY_ADMIN = 2;
+    public static final int APPEAL_STATUS_VERIFIED = 4;
+    public static final int APPEAL_STATUS_VERIFIED_BY_TEACHER = 3;
 
 
 

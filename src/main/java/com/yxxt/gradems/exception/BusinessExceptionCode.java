@@ -7,6 +7,10 @@ public enum BusinessExceptionCode {
     USER_ID_ERROR("用户ID不存在"),
     COURSE_ID_ERROR("课程ID不存在"),
     USER_STATUS_ERROR("学籍状态不支持选课"),
+    KEY_NOT_EXIST("查询关键字不存在"),
+    DB_OPERATION_ERROR("数据库内部错误"),
+    PERMISSION_DENIED("权限不允许"),
+    INVALID_OPERATION("非法操作"),
     ;
 
     private String desc;

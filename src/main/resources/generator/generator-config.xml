@@ -51,6 +51,7 @@
 <!--        <table tableName="course_schedule"/>-->
 <!--        <table tableName="training_program"/>-->
 <!--        <table tableName="major_department"/>-->
-        <table tableName="course_selection"/>
+<!--        <table tableName="course_selection"/>-->
+        <table tableName="score_appeal"/>
     </context>
 </generatorConfiguration>
