@@ -1,19 +1,15 @@
 package com.yxxt.gradems.service;
 
-import com.sun.tools.javac.util.Pair;
 import com.yxxt.gradems.domain.*;
 import com.yxxt.gradems.exception.BusinessException;
 import com.yxxt.gradems.exception.BusinessExceptionCode;
 import com.yxxt.gradems.mapper.*;
-
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
-import reactor.util.function.Tuple2;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -86,7 +82,7 @@ public class ScoreAnalyseService {
      * @param studentId
      * @return 名词 / 总人数 （Tuple)
      */
-    public Pair<Integer,Integer> getRank(Long studentId){
+    public Pair<Integer, Integer> getRank(Long studentId){
         Student student = studentMapper.selectByPrimaryKey(studentId);
         if(student == null){
             throw new BusinessException(BusinessExceptionCode.KEY_NOT_EXIST);
@@ -104,7 +100,7 @@ public class ScoreAnalyseService {
                 rank++;
             }
         }
-        return new Pair<>(rank,ids.size());
+        return Pair.of(rank,ids.size());
     }
 
     /**
@@ -136,7 +132,7 @@ public class ScoreAnalyseService {
      * @param classIndex
      * @return
      */
-    public List<StudentScore> getStudentScoresOfClass(String courseUid,int classIndex){
+    public List<StudentScore> getStudentScoresOfClass(String courseUid, int classIndex){
         StudentScoreExample example = new StudentScoreExample();
         StudentScoreExample.Criteria criteria = example.createCriteria();
         criteria.andClassIndexEqualTo(classIndex)

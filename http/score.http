@@ -6,7 +6,7 @@ GET http://localhost:8880/score/analysis/student/3180104343
 
 
 ### 获得班级的分数列表
-POST http://localhost:8880/score/analysis/class
+GET http://localhost:8880/score/analysis/class
 Content-Type: application/json
 
 {

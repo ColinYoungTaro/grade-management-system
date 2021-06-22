@@ -18,7 +18,7 @@ public class AnalysisResp {
 
     private int total;
     private float credit;
-    List<Course> failedCourses;
+    private List<Course> failedCourses;
 
     public float getGPA() {
         return GPA;

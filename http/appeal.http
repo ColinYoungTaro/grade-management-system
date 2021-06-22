@@ -28,7 +28,7 @@ POST http://localhost:8880/appeal/appeal_handle/teacher
 Content-Type: application/json
 
 {
-    "rowId":2,
+    "rowId":11,
     "agree":false
 }
 
@@ -37,7 +37,7 @@ POST http://localhost:8880/appeal/appeal_handle/teacher
 Content-Type: application/json
 
 {
-    "rowId":2,
+    "rowId":11,
     "agree":true,
     "score":99
 }
@@ -47,7 +47,7 @@ POST http://localhost:8880/appeal/appeal_handle/admin
 Content-Type: application/json
 
 {
-    "rowId":2,
+    "rowId":11,
     "agree":true
 }
 
@@ -56,7 +56,7 @@ POST http://localhost:8880/appeal/appeal_handle/admin
 Content-Type: application/json
 
 {
-    "rowId":2,
+    "rowId":11,
     "agree":false
 }
 

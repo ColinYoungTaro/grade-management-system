@@ -7,6 +7,8 @@ import 'ant-design-vue/dist/antd.css';
 import * as Icons from '@ant-design/icons-vue';
 import axios from 'axios';
 import {Tool} from "@/util/tool";
+import printJS from 'print-js';
+
 
 axios.defaults.baseURL = process.env.VUE_APP_SERVER;
 

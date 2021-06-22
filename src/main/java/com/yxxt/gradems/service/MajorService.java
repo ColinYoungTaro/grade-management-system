@@ -1,7 +1,5 @@
 package com.yxxt.gradems.service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.yxxt.gradems.domain.*;
 import com.yxxt.gradems.exception.BusinessException;
@@ -10,6 +8,8 @@ import com.yxxt.gradems.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Major Service 管理专业和班级相关的服务接口
@@ -38,7 +38,7 @@ public class MajorService {
         List<Major> majorList = new ArrayList<>();
         MajorDepartmentExample mdExmple = new MajorDepartmentExample();
         mdExmple.createCriteria()
-        .andDepartmentIdEqualTo(departmentId);
+                .andDepartmentIdEqualTo(departmentId);
         // 判断学院是否存在
         Department department = departmentMapper.selectByPrimaryKey(departmentId);
         if(department == null){

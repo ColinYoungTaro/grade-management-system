@@ -4,70 +4,79 @@
         <a-layout-content
                 :style="{ background: '#fff', padding: '3px', margin: 0, minHeight: '280px' }"
         >
+            <br>
+            <br>
             <div align="center">
+                <button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: '成绩单' })">
+                    打印成绩单
+                </button>
+            </div>
+            <br>
 
-                <a-card title="学业成绩"  style="width: 1200px" :body-style='{padding:1}' :headStyle="{ height: 9,  background: '#0785fd', color:'#ffffff'}">
-                    <div align="center">
-                        <a-card style="width: 1100px" :bordered=false :body-style='{padding:0}' :headStyle="{ height: 6, 'text-align': 'left' }"  >
-                            <div style="background-color: #ffffff; ">
-                                <a-row :gutter="0">
-                 <pre>
 
-                 </pre>
-                                    <a-col :span="10">
-                                        <a-card  title="学年平均绩点"  :bordered="false">
-                                            <a-col :span="24">
-                                                <div id="average_score" style="width: 100%;height:300px;"></div>
-                                            </a-col>
-                                        </a-card>
-                                    </a-col>
-                                    <pre>
+            <div id="printJS-form" align="center">
+                <a-card style="width: 1100px" :bordered=false :body-style='{padding:0}' :headStyle="{ height: 6, 'text-align': 'left' }"  >
+                    <div style="background-color: #ffffff; ">
+                        <a-row :gutter="0">
+                            <a-col :span="7">
+                                <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                    <a-form-item label="学号">
+                                        <a>{{userId}}</a>
+                                    </a-form-item>
+                                </a-form>
+                            </a-col>
+                            <a-col :span="7">
+                                <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                    <a-form-item label="姓名">
+                                        <a>{{userId}}</a>
+                                    </a-form-item>
+                                </a-form>
+                            </a-col>
+                        </a-row>
+                        <a-row :gutter="0">
+                            <a-col :span="7">
+                                    <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                        <a-form-item label="均分">
+                                            <a>{{gpa}}</a>
+                                        </a-form-item>
+                                    </a-form>
+                            </a-col>
+                            <a-col :span="7">
+                                    <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                        <a-form-item label="排名">
+                                            <a>{{rank}}</a>
+                                        </a-form-item>
+                                    </a-form>
+                            </a-col>
+                            <a-col :span="7">
+                                    <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                        <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
+                                            <a-form-item label="学分">
+                                                <a>{{credit}}</a>
+                                            </a-form-item>
+                                        </a-form>
+                                    </a-form>
+                            </a-col>
 
-    </pre>
-                                    <a-col :span="10">
-                                        <a-card  title="学年排名统计"  :bordered="false">
-                                            <a-col :span="24">
-                                                <div id="rank_score" style="width: 100%;height:300px;"></div>
-                                            </a-col>
-                                        </a-card>
-                                    </a-col>
-                                </a-row>
-                            </div>
+                        </a-row>
+                        <a-row :gutter="0">
+                        <a-card style="width: 1500px" :bordered=false :body-style='{padding:0}' :headStyle="{ height: 6, 'text-align': 'left' }"  >
+
+                            <a-table
+                                    :align="center"
+                                    :columns="columns"
+                                    :row-key="record => record.id"
+                                    :data-source="course_scores"
+                                    :pagination="false"
+                                    :loading="loading"
+                            >
+                            </a-table>
                         </a-card>
+                        </a-row>
                     </div>
-
-                    <div align="center">
-                        <a-card title="学籍信息" style="width: 1100px" :bordered=false  :body-style='{padding:0}' :headStyle="{height: 6, 'text-align': 'left' }" >
-                            <div style="background-color: #ffffff; ">
-                                <a-row :gutter="0">
-                 <pre>
-
-                 </pre>
-                                    <a-col :span="10">
-                                        <a-card title="学年总学分" :bordered="false">
-                                            <a-col :span="24">
-                                                <div id="total_credit" style="width: 100%;height:300px;"></div>
-                                            </a-col>
-                                        </a-card>
-                                    </a-col>
-                                    <pre>
-
-    </pre>
-                                    <a-col :span="10">
-                                        <a-card title="挂科情况统计" :bordered="false">
-                                            <a-col :span="24">
-                                                <div id="failed_course" style="width: 100%;height:300px;"></div>
-                                            </a-col>
-                                        </a-card>
-                                    </a-col>
-                                </a-row>
-                            </div>
-                        </a-card>
-                    </div>
-                    <a-button type="primary" @click="handleConfirm">
-                        确定
-                    </a-button>
                 </a-card>
+
+
             </div>
         </a-layout-content>
     </a-layout>
@@ -82,8 +91,7 @@
     import { message } from 'ant-design-vue';
     import {Tool} from "@/util/tool";
     import store from "@/store";
-
-    declare let echarts: any;
+    import printJS from 'print-js';
 
 
     export default defineComponent({
@@ -92,106 +100,109 @@
             TheStudentScoreSider,
         },
         setup() {
-            const dateFormat = 'YYYY/MM/DD';
             const user = computed(() => store.state.user);
 
-            const student = ref();
-            student.value = {};
+
+            const param = ref();
+            param.value = {};
+
+            const course_scores = ref();
+            const pagination = ref({
+                current: 1,
+                pageSize: 100,
+                total: 0
+            });
+            const loading = ref(false);
+
+            const columns = [
+                {
+                    title: '课号',
+                    key: 'courseUid',
+                    dataIndex: 'courseUid',
+                    width: "100px"
+                },
+                {
+                    title: '课程名称',
+                    dataIndex: 'courseName',
+                    width: "150px"
+                },
+                {
+                    title: '成绩',
+                    dataIndex: 'score',
+                    width: "100px"
+                },
+                {
+                    title: '学分',
+                    dataIndex: 'credit',
+                    width: "100px"
+                },
+                {
+                    title: '绩点',
+                    dataIndex: 'gpa',
+                    width: "100px"
+                },
+            ];
+
+
+            var query_year = 0;
+            const userId = user.value.userId;
+            const userName = user.value.userName;
 
             /**
              * 数据查询
              **/
             const handleQuery = (params: any) => {
-                student.value = {};
-                axios.get("/student/information", {
+                loading.value = true;
+                course_scores.value = [];
+                axios.get("/studentscore/whole/list", {
                     params :{
-                        userId: user.value.userId,
+                        page: params.page,
+                        size: params.size,
+                        studentId: user.value.userId,
+                        courseUid: param.value.courseUid
                     }
                 }).then((response) => {
+                    loading.value = false;
                     const data = response.data;
                     if (data.success) {
-                        student.value = data.content;
+                        course_scores.value = data.content.list;
+
+                        // 重置分页按钮
+                        pagination.value.current = params.page;
+                        pagination.value.total = data.content.total;
                     } else {
                         message.error(data.message);
                     }
                 });
             };
 
-            const handleConfirm = (params: any) => {
-                axios.post("/student/information/save", student.value).then((response) => {
-                    const data = response.data; // data = commonResp
-                    if (data.success) {
-                        message.info("提交成功");
-                        // 重新加载列表
-                        handleQuery({
-                            userId: user.value.userId,
-                        });
-                    } else{
-                        message.error(data.message);
-                    }
-                });
-            };
-
-
-            const scoreEcharts = (list: any) => {
-                // 基于准备好的dom，初始化echarts实例
-                const averageScoreChart = echarts.init(document.getElementById('average_score'));
-
-                const xAxis = [];
-                const averageScore = [];
-                for (let i = 0; i < list.length; i++) {
-                    const record = list[i];
-                    xAxis.push(record.date);
-                    averageScore.push(record.averageScore);
-                }
-                // 指定图表的配置项和数据
-                const averageScoreOption = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data:['平均绩点']
-                    },
-                    toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: xAxis
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        name: '平均绩点',
-                        type: 'bar',
-                        data: averageScore
-                    }]
-                };
-
-
-
-                // 使用刚指定的配置项和数据显示图表。
-                averageScoreChart.setOption(averageScoreOption);
-            };
-
+            /**
+             * 获取学生成绩分析结果
+             */
+            const rank = ref();
+            const credit = ref();
+            const gpa = ref();
+            const scoreAnalysis = ref();
+            scoreAnalysis.value = {};
             const getScoreInformation = () => {
-                axios.get('/student/score/information',{
-                    params :{
-                        userId: user.value.userId,
-                    }
-                }).then((response) => {
+                axios.get("/score/analysis/student/"+user.value.userId).then((response) => {
                     const data = response.data;
                     if (data.success) {
-                        const averageScoreList = data.content;
-
-                        scoreEcharts(averageScoreList)
+                        scoreAnalysis.value = data.content;
+                        gpa.value = scoreAnalysis.value.gpa;
+                        credit.value = scoreAnalysis.value.credit;
+                        rank.value = scoreAnalysis.value.rank.toString()+"/"+scoreAnalysis.value.total.toString();
                     }
                 });
             };
+
+
+            function printHtml() {
+                printJS({
+                    printable: 'test',
+                    type: 'html'
+                })
+            }
 
             onMounted(() => {
                 handleQuery({
@@ -201,11 +212,20 @@
             });
 
             return {
+                param,
+                pagination,
+                columns,
+                loading,
                 handleQuery,
-                student,
                 user,
-                dateFormat,
-                handleConfirm,
+                course_scores,
+                scoreAnalysis,
+                rank,
+                credit,
+                gpa,
+                userId,
+                userName,
+
             }
         }
     });

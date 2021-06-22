@@ -26,7 +26,7 @@ public class CourseManagerController {
     @Resource
     private SnowFlake snowFlake;
 
-    @GetMapping("/list")
+    @RequestMapping("/list")
     public CommonResp courseList(@Valid CourseQueryReq req) {
         CommonResp<PageResp<CourseQueryResp>> resp = new CommonResp<>();
         PageResp<CourseQueryResp> list = courseManageService.courseList(req);

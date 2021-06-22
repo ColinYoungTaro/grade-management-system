@@ -2,11 +2,11 @@ package com.yxxt.gradems.req;
 
 public class TeacherClassStudentsQueryReq{
 
-    private Long teacherId;
-
     private String courseUid;
 
     private Integer classIndex;
+
+    private Long teacherId;
 
     public Long getTeacherId() {
         return teacherId;
