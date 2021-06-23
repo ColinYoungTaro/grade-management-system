@@ -46,7 +46,7 @@ public class ScoreController {
     }
 
     @GetMapping("/analysis/class")
-    public CommonResp ClassAnalysis(TeacherClassStudentsQueryReq req){
+    public CommonResp ClassAnalysis(@RequestBody TeacherClassStudentsQueryReq req){
         List<StudentScore> scoreList = scoreAnalyseService.getStudentScoresOfClass(req.getCourseUid(),req.getClassIndex());
         List<Integer> scores = scoreList.stream().map(StudentScore::getScore).collect(Collectors.toList());
         return CommonResp.success("",scores);

@@ -67,5 +67,4 @@ public class AppealServiceTest {
                                 );
         Assert.assertEquals((short)100, score.shortValue());
     }
-
 }

@@ -67,10 +67,16 @@ public class ScoreAnalyseService {
     }
     public float calcGPA(Long studentId){
         List<StudentScore> studentScores = getAllScoresOfStudents(studentId);
+        if(studentScores.size() == 0){
+            return 0f;
+        }
         float credits = 0f;
         float accScores = 0f;
         for(StudentScore score : studentScores){
             Course course = courseMapper.selectByPrimaryKey(score.getCourseUid());
+            if(course == null){
+                continue;
+            }
             accScores += score.getScore() * course.getCredit();
             credits += course.getCredit();
         }

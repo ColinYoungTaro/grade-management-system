@@ -9,8 +9,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.junit4.statements.SpringRepeat;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.util.Pair;
 
 @SpringBootTest(classes = GrademsApplication.class)
@@ -28,5 +30,12 @@ public class ScoreAnalyseServiceTest {
         int total = pair.getSecond();
         Assert.assertEquals(1,rank);
         Assert.assertEquals(1,total);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void scoreListTest() throws Exception{
+        
     }
 }
