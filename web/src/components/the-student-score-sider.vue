@@ -17,6 +17,13 @@
                     </span>
                 </template>
             </a-sub-menu>
+            <a-sub-menu key="/student/score/appeal">
+                <template #title>
+                    <span><FormOutlined />
+                        <router-link to="/student/score/appeal"  class="router-link-active"> 复核申请 </router-link>
+                    </span>
+                </template>
+            </a-sub-menu>
         </a-menu>
     </a-layout-sider>
 </template>

@@ -8,13 +8,16 @@ import AdminManager from '../views/admin/admin-manager.vue'
 import AdminCourse from '../views/admin/admin-course.vue'
 import AdminCourseSchedule from '../views/admin/admin-courseschedule.vue'
 import AdminClass from '../views/teacher/admin/admin-class.vue'
+import ManagerAdminAppeals from '../views/admin/admin-appeals.vue'
 import AnalyzeScore from '../views/student/score/analyze-score.vue'
 import StudentQueryWholeScore from '../views/student/score/query-whole-score.vue'
+import StudentScoreAppeal from '../views/student/score/apply-appeal-score.vue'
 import StudentInformation from '../views/student/student-information.vue'
 import SelectMajorCourse from '../views/student/course/select-major-course.vue'
 import SelectGeneralCourse from '../views/student/course/select-general-course.vue'
 import SelectALLCourse from '../views/student/course/select-all-course.vue'
 import TeacherInformation from '../views/teacher/teacher-information.vue'
+import TeacherAdminApply from '../views/teacher/admin/admin-apply.vue'
 
 import store from "@/store";
 import {Tool} from "@/util/tool";
@@ -85,6 +88,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       loginRequire: true
     }
+  },{
+    path: '/admin/appeals',
+    name: 'ManagerAdminAppeals',
+    component: ManagerAdminAppeals,
+    meta: {
+      loginRequire: true
+    }
   },
   {
     path: '/student/analysis/score',
@@ -135,9 +145,24 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/student/score/appeal',
+    name: 'StudentScoreAppeal',
+    component: StudentScoreAppeal,
+    meta: {
+      loginRequire: true
+    }
+  },
+  {
     path: '/teacher/information',
     name: 'TeacherInformation',
     component: TeacherInformation,
+    meta: {
+      loginRequire: true
+    }
+  },  {
+    path: '/teacher/admin/apply',
+    name: 'TeacherAdminApply',
+    component: TeacherAdminApply,
     meta: {
       loginRequire: true
     }

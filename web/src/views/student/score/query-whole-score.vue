@@ -39,35 +39,6 @@
                         </a-card>
                     </a-col>
 
-<!--                    <a-col :span="3" >
-                        <a-card :bordered="false" >
-                            <p>
-                                <a-dropdown-button>
-                                    按学年查询
-                                    <template #overlay>
-                                        <a-menu  @click="handleYearMenuClick">
-                                            <a-menu-item key="1">
-                                                <UserOutlined />
-                                                第一学年
-                                            </a-menu-item>
-                                            <a-menu-item key="2">
-                                                <UserOutlined />
-                                                第二学年
-                                            </a-menu-item>
-                                            <a-menu-item key="3">
-                                                <UserOutlined />
-                                                第三学年
-                                            </a-menu-item>
-                                            <a-menu-item key="4">
-                                                <UserOutlined />
-                                                第四学年
-                                            </a-menu-item>
-                                        </a-menu>
-                                    </template>
-                                </a-dropdown-button>
-                            </p>
-                        </a-card>
-                    </a-col>-->
                     <a-col :span="3">
                         <a-card :bordered="false">
                             <p>
@@ -140,7 +111,7 @@
 
             const columns = [
                 {
-                    title: '选课课号',
+                    title: '课程代码',
                     key: 'courseUid',
                     dataIndex: 'courseUid'
                 },

@@ -17,8 +17,8 @@
             <a-menu-item key="/admin/course"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
                 <router-link to="/admin/course">课程管理</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">审核申请</router-link>
+            <a-menu-item key="/admin/appeals"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
+                <router-link to="/admin/appeals">审核申请</router-link>
             </a-menu-item>
 
             <a-menu-item key="/teacher/information"  :style="user.roleId===teacherRoleId? {} : {display:'none'}">
@@ -35,9 +35,6 @@
             </a-menu-item>
             <a-menu-item key="/student/query/whole/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
                 <router-link to="/student/query/whole/score">成绩查询</router-link>
-            </a-menu-item>
-            <a-menu-item key="/query/student/score"  :style="user.roleId===studentRoleId? {} : {display:'none'}">
-                <router-link to="/query/student/score">成绩复核申请</router-link>
             </a-menu-item>
             <a-menu-item key="/about">
                 <router-link to="/about">关于我们</router-link>
@@ -65,6 +62,8 @@
                 v-model:visible="loginModalVisible"
                 :confirm-loading="loginModalLoading"
                 @ok="login"
+                cancelText="取消"
+                okText="确认"
         >
             <a-form :model="loginUser" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
                 <a-form-item label="登录名">

@@ -7,7 +7,13 @@
             <a-sub-menu key="/admin/class">
                 <template #title>
                     <span><user-outlined />
-                        <router-link to="/admin/class">教学班级管理</router-link>
+                        <router-link to="/admin/class" class="router-link-active">教学班级管理</router-link>
+                    </span>
+                </template>
+            </a-sub-menu> <a-sub-menu key="/teacher/admin/apply">
+                <template #title>
+                    <span><FormOutlined />
+                        <router-link to="/teacher/admin/apply" class="router-link-active">审核申请</router-link>
                     </span>
                 </template>
             </a-sub-menu>
@@ -22,3 +28,14 @@
         name: 'the-manage-class-sider'
     });
 </script>
+
+<style>
+    .router-link-active {
+        text-decoration: none;
+        color: gray;
+    }
+    a{
+        text-decoration: none;
+        color: gray;
+    }
+</style>
