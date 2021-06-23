@@ -38,4 +38,9 @@ public class VarConfig {
     public static String ACCOUNT_NOT_EXIST = "account_not_exist";
 
     public static final int MD5_ITER_TIMES = 2;
+
+    public static final int NOT_SELECTED = 0;
+    public static final int SELECTED = 1;
+    public static final int FINISHED = 2;
+
 }

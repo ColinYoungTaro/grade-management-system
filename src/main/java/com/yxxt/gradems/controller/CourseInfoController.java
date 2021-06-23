@@ -1,9 +1,11 @@
 package com.yxxt.gradems.controller;
 
 import com.yxxt.gradems.domain.*;
+import com.yxxt.gradems.mapper.DepartmentMapper;
 import com.yxxt.gradems.resp.CommonResp;
 import com.yxxt.gradems.resp.CourseScheduleResp;
 import com.yxxt.gradems.service.CourseInfoService;
+import com.yxxt.gradems.service.DepartmentService;
 import com.yxxt.gradems.service.MajorService;
 import com.yxxt.gradems.service.SchoolUserService;
 import com.yxxt.gradems.service.StudentService;
@@ -27,6 +29,9 @@ public class CourseInfoController {
 
     @Resource
     private SchoolUserService schoolUserService;
+
+    @Resource
+    private DepartmentService departmentService;
 
     @RequestMapping("/training_program/{majorId}")
     public CommonResp getTrainingProgramCourses(@PathVariable("majorId")Integer majorId){
@@ -56,9 +61,13 @@ public class CourseInfoController {
                 Long id = scheduleRecord.getTeacherId();
                 SchoolUser user = schoolUserService.getSchoolUser(id);
                 CourseScheduleResp respContent = new CourseScheduleResp();
+                Department department = departmentService.getDepartmentOfMajorById(majorId);
+                respContent.setDepartment(department);
                 respContent.setCourse(course);
                 respContent.setTeacher(user);
+                respContent.setSelectState(courseInfoService.getCourseSelectionStateByStudentId(studentId, course.getCourseUid()));
                 respContent.setSchedule(scheduleRecord);
+                
                 resultSet.add(respContent);
             }
         }
