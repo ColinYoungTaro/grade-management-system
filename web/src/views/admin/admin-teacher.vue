@@ -67,7 +67,7 @@
         <a-input v-model:value="teacher.passwordEncode" type="password"/>
       </a-form-item>
       <a-form-item label="性别">
-        <a-input v-model:value="teacher.gender" />
+        <a-cascader v-model:value="teacher.strGender" :options="options" placeholder="性别" />
       </a-form-item>
       <a-form-item label="学院">
         <a-input v-model:value="teacher.departmentId" />
@@ -121,7 +121,7 @@
         },
         {
           title: '性别',
-          dataIndex: 'gender'
+          dataIndex: 'strGender'
         },
         {
           title: '学院',
@@ -132,6 +132,17 @@
           key: 'action',
           slots: { customRender: 'action' }
         }
+      ];
+
+      const options = [
+        {
+          value: "男",
+          label: '男',
+        },
+        {
+          value: '女',
+          label: '女',
+        },
       ];
 
       /**
@@ -181,7 +192,7 @@
         modalLoading.value = true;
 
         teacher.value.passwordEncode = hexMd5(teacher.value.passwordEncode + KEY);
-
+        teacher.value.gender = teacher.value.strGender == "男";
         axios.post("/schooluser/teacher/save", teacher.value).then((response) => {
           modalLoading.value = false;
           const data = response.data; // data = commonResp
@@ -255,7 +266,8 @@
         modalVisible,
         modalLoading,
         handleModalOk,
-        handleDelete
+        handleDelete,
+        options,
       }
     }
   });

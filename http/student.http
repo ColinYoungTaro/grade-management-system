@@ -2,6 +2,10 @@ GET http://localhost:8880/student/information?userId=3170100002
 
 ###
 
+GET http://localhost:8880/score/analysis/class?courseUid=21120010&classIndex=1
+
+###
+
 GET http://localhost:8880/student/list
 
 ###
@@ -20,3 +24,5 @@ Content-Type: application/json
 DELETE http://localhost:8880/student/delete?userId=11111111111
 
 ###
+
+

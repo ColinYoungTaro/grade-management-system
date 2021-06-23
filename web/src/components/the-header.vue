@@ -1,6 +1,8 @@
 <template>
     <a-layout-header class="header">
-        <div class="logo" />
+        <div class="logo">
+            成绩管理系统
+        </div>
         <a-menu
                 theme="dark"
                 mode="horizontal"
@@ -9,8 +11,8 @@
             <a-menu-item key="/">
                 <router-link to="/">首页</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/schooluser"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
-                <router-link to="/admin/schooluser">用户管理</router-link>
+            <a-menu-item key="/admin/student"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
+                <router-link to="/admin/student">用户管理</router-link>
             </a-menu-item>
             <a-menu-item key="/admin/course"  :style="user.roleId===managerRoleId? {} : {display:'none'}">
                 <router-link to="/admin/course">课程管理</router-link>
@@ -90,6 +92,7 @@
     export default defineComponent({
         name: 'the-header',
         setup () {
+
             // 获取配置数据
             const managerRoleId = computed(() => store.state.managerRoleId);
             const teacherRoleId = computed(() => store.state.teacherRoleId);
@@ -155,7 +158,7 @@
 
                 managerRoleId,
                 teacherRoleId,
-                studentRoleId
+                studentRoleId,
             }
         }
 
@@ -163,6 +166,15 @@
 </script>
 
 <style>
+    .logo {
+        width: 120px;
+        height: 31px;
+
+        float: left;
+        color: white;
+        font-size: 18px;
+    }
+
     .login-menu {
         float: right;
         color: white;

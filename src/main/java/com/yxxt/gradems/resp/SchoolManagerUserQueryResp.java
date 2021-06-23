@@ -25,6 +25,16 @@ public class SchoolManagerUserQueryResp {
 
     private Date birthday;
 
+    private String strGender;
+
+    public String getStrGender() {
+        return strGender;
+    }
+
+    public void setStrGender(String strGender) {
+        this.strGender = strGender;
+    }
+
     public Long getRowId() {
         return rowId;
     }

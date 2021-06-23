@@ -63,7 +63,9 @@ public class SchoolUserService {
 
         // 对于查询到的每一个教师用户，去student表中，根据userId查询是否有对应记录
         List<SchoolManagerUserQueryResp> list = CopyUtil.copyList(schoolUserList, SchoolManagerUserQueryResp.class);
-
+        for(SchoolManagerUserQueryResp schoolUser: list){
+            schoolUser.setStrGender(schoolUser.getGender()?"男":"女");
+        }
         PageInfo<SchoolUser> pageInfo = new PageInfo<>(schoolUserList);
         LOG.info("总行数：{}", pageInfo.getTotal());
         LOG.info("总页数：{}", pageInfo.getPages());
@@ -133,7 +135,7 @@ public class SchoolUserService {
             Long schoolUserId = schoolUser.getUserId();
             Student student = studentMapper.selectByPrimaryKey(schoolUserId);
             SchoolStudentUserQueryResp  schoolStudentUserQueryResp = CopyUtil.copy(schoolUser, SchoolStudentUserQueryResp.class);
-
+            schoolStudentUserQueryResp.setStrGender(schoolUser.getGender()?"男":"女");
             if(!ObjectUtils.isEmpty(student)) {
                 schoolStudentUserQueryResp.setMajorId(student.getMajorId());
                 schoolStudentUserQueryResp.setGrade(student.getGrade());
@@ -229,7 +231,9 @@ public class SchoolUserService {
         List<SchoolUser>  schoolUserList = schooluserMapper.selectByExample(schooluserExample);
 
         List<SchoolTeacherUserQueryResp> list = CopyUtil.copyList(schoolUserList, SchoolTeacherUserQueryResp.class);
-
+        for(SchoolTeacherUserQueryResp schoolUser: list){
+                schoolUser.setStrGender(schoolUser.getGender()?"男":"女");
+        }
         PageInfo<SchoolUser> pageInfo = new PageInfo<>(schoolUserList);
         LOG.info("总行数：{}", pageInfo.getTotal());
         LOG.info("总页数：{}", pageInfo.getPages());

@@ -15,6 +15,16 @@ public class SchoolStudentUserQueryResp {
 
     private String userName;
 
+    private String strGender;
+
+    public String getStrGender() {
+        return strGender;
+    }
+
+    public void setStrGender(String strGender) {
+        this.strGender = strGender;
+    }
+
     private String passwordEncode;
 
     private String email;

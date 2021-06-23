@@ -8,10 +8,7 @@ import com.yxxt.gradems.exception.BusinessException;
 import com.yxxt.gradems.exception.BusinessExceptionCode;
 import com.yxxt.gradems.mapper.*;
 import com.yxxt.gradems.req.*;
-import com.yxxt.gradems.resp.PageResp;
-import com.yxxt.gradems.resp.StudentInformationQueryResp;
-import com.yxxt.gradems.resp.StudentQueryCourseResp;
-import com.yxxt.gradems.resp.StudentQueryResp;
+import com.yxxt.gradems.resp.*;
 import com.yxxt.gradems.util.CopyUtil;
 import com.yxxt.gradems.util.SnowFlake;
 import org.slf4j.Logger;
@@ -203,17 +200,20 @@ public class StudentService {
                     TrainingProgramExample.Criteria criteriaTrainingProgram = trainingProgramExample.createCriteria();
                     criteriaTrainingProgram.andCourseUidEqualTo(courseUid);
                     List<TrainingProgram> trainingProgramList = trainingProgramMapper.selectByExample(trainingProgramExample);
-                    TrainingProgram trainingProgram = trainingProgramList.get(0);
-                    Integer majorId = trainingProgram.getMajorId();
-                    MajorDepartmentExample majorDepartmentExample = new MajorDepartmentExample();
-                    MajorDepartmentExample.Criteria criteriamajorDepartment = majorDepartmentExample.createCriteria();
-                    criteriamajorDepartment.andMajorIdEqualTo(majorId);
-                    List<MajorDepartment> majorDepartmentList = majorDepartmentMapper.selectByExample(majorDepartmentExample);
-                    MajorDepartment majorDepartment = majorDepartmentList.get(0);
-                    Integer departmentId = majorDepartment.getDepartmentId();
-                    Department department = departmentMapper.selectByPrimaryKey(departmentId);
+                    if(!ObjectUtils.isEmpty(trainingProgramList)){
+                        TrainingProgram trainingProgram = trainingProgramList.get(0);
+                        Integer majorId = trainingProgram.getMajorId();
+                        MajorDepartmentExample majorDepartmentExample = new MajorDepartmentExample();
+                        MajorDepartmentExample.Criteria criteriamajorDepartment = majorDepartmentExample.createCriteria();
+                        criteriamajorDepartment.andMajorIdEqualTo(majorId);
+                        List<MajorDepartment> majorDepartmentList = majorDepartmentMapper.selectByExample(majorDepartmentExample);
+                        MajorDepartment majorDepartment = majorDepartmentList.get(0);
+                        Integer departmentId = majorDepartment.getDepartmentId();
+                        Department department = departmentMapper.selectByPrimaryKey(departmentId);
 
-                    studentQueryCourseResp.setDepartmentName(department.getDepartmentName());
+                        studentQueryCourseResp.setDepartmentName(department.getDepartmentName());
+                    }
+
 
                     // 获取该学生对该门课程的选课状态
                     CourseSelectionExample courseSelectionExample = new CourseSelectionExample();
@@ -327,6 +327,108 @@ public class StudentService {
 
     public Student getStudentById(Long studentId){
         return studentMapper.selectByPrimaryKey(studentId);
+    }
+
+
+
+
+    // 查询该学生在能选的所有课程
+    public List<StudentQueryCourseResp> getRecommendedCourse(StudentQueryCourseReq req) {
+
+        // 获取该学生
+        Student student = studentMapper.selectByPrimaryKey(req.getUserId());
+        // 如果没有学籍，无法选课
+        if(student.getStatus()==1){
+            List<StudentQueryCourseResp> list = new ArrayList<>();
+
+            // 专业id
+            Integer majorId = student.getMajorId();
+
+            // 获取开课学院名称department
+            MajorDepartmentExample majorDepartmentExample = new MajorDepartmentExample();
+            MajorDepartmentExample.Criteria criteriamajorDepartment = majorDepartmentExample.createCriteria();
+            criteriamajorDepartment.andMajorIdEqualTo(majorId);
+            List<MajorDepartment> majorDepartmentList = majorDepartmentMapper.selectByExample(majorDepartmentExample);
+            MajorDepartment majorDepartment = majorDepartmentList.get(0);
+            Integer departmentId = majorDepartment.getDepartmentId();
+            Department department = departmentMapper.selectByPrimaryKey(departmentId);
+
+            // 获取该专业所有课程
+            TrainingProgramExample trainingProgramExample = new TrainingProgramExample();
+            TrainingProgramExample.Criteria criteriaTrainingProgram = trainingProgramExample.createCriteria();
+            criteriaTrainingProgram.andMajorIdEqualTo(majorId);
+            List<TrainingProgram> trainingProgramList = trainingProgramMapper.selectByExample(trainingProgramExample);
+
+            if(!ObjectUtils.isEmpty(trainingProgramList)){
+                for (TrainingProgram trainingProgram : trainingProgramList){
+                    // 获取所有课程安排记录
+                    CourseScheduleExample courseScheduleExample = new CourseScheduleExample();
+                    CourseScheduleExample.Criteria criteriaCourseSchedule = courseScheduleExample.createCriteria();
+                    if (!ObjectUtils.isEmpty(req.getCourseUid())) {
+                        criteriaCourseSchedule.andCourseUidEqualTo(req.getCourseUid());
+                    }
+                    criteriaCourseSchedule.andCourseUidEqualTo(trainingProgram.getCourseUid());
+                    List<CourseSchedule>  courseScheduleList = courseScheduleMapper.selectByExample(courseScheduleExample);
+                    for (CourseSchedule courseSchedule : courseScheduleList) {
+
+                        String courseUid = courseSchedule.getCourseUid();
+                        Course course = courseMapper.selectByPrimaryKey(courseUid);
+
+                        if( !ObjectUtils.isEmpty(course)) {
+
+                            StudentQueryCourseResp  studentQueryCourseResp = CopyUtil.copy(course, StudentQueryCourseResp.class);
+                            studentQueryCourseResp.setTeacherId(courseSchedule.getTeacherId());
+                            studentQueryCourseResp.setClassIndex(courseSchedule.getClassIndex());
+
+                            if(course.getCourseType().equals(VarConfig.MAJOR_COURSE)) {
+                                studentQueryCourseResp.setStringCourseType("专业课");
+                            }else if(course.getCourseType().equals(VarConfig.GENERAL_COURSE)) {
+                                studentQueryCourseResp.setStringCourseType("通识课");
+                            }
+
+                            // 获取该学生对该门课程的选课状态
+                            CourseSelectionExample courseSelectionExample = new CourseSelectionExample();
+                            CourseSelectionExample.Criteria criteriaCourseSelection = courseSelectionExample.createCriteria();
+                            criteriaCourseSelection.andStudentIdEqualTo(req.getUserId());
+                            criteriaCourseSelection.andCourseUidEqualTo(courseUid);
+                            criteriaCourseSelection.andClassIndexEqualTo(courseSchedule.getClassIndex());
+                            List<CourseSelection> courseSelectionList = courseSelectionMapper.selectByExample(courseSelectionExample);
+
+                            StudentScoreExample studentScoreExample = new StudentScoreExample();
+                            StudentScoreExample.Criteria criteriaStudentScore = studentScoreExample.createCriteria();
+                            criteriaStudentScore.andStudentIdEqualTo(req.getUserId());
+                            criteriaStudentScore.andCourseUidEqualTo(courseUid);
+                            List<StudentScore> studentScoreList = studentScoreMapper.selectByExample(studentScoreExample);
+
+                            // 已修读该课程
+                            if(!ObjectUtils.isEmpty(studentScoreList)){
+                                studentQueryCourseResp.setSelectCourseStatus(2);
+                                studentQueryCourseResp.setStringStatus("已修读");
+                            } else if(ObjectUtils.isEmpty(courseSelectionList)){
+                                studentQueryCourseResp.setSelectCourseStatus(0);
+                                studentQueryCourseResp.setStringStatus("未选");
+                            }else{
+                                studentQueryCourseResp.setSelectCourseStatus(1);
+                                studentQueryCourseResp.setStringStatus("已选");
+                            }
+
+                            SchoolUser teacherUser = schoolUserMapper.selectByPrimaryKey(courseSchedule.getTeacherId());
+                            studentQueryCourseResp.setTeacherName(teacherUser.getUserName());
+                            studentQueryCourseResp.setDepartmentName(department.getDepartmentName());
+                            if(!ObjectUtils.isEmpty(course.getTerm())){
+                                studentQueryCourseResp.setCourseTerm();
+                            }
+                            list.add(studentQueryCourseResp);
+                        }
+                    }
+                }
+            }
+
+            return list;
+
+        }else{
+            throw new BusinessException(BusinessExceptionCode.USER_STATUS_ERROR);
+        }
     }
 
 }

@@ -39,7 +39,7 @@
                         </a-card>
                     </a-col>
 
-                    <a-col :span="3" >
+<!--                    <a-col :span="3" >
                         <a-card :bordered="false" >
                             <p>
                                 <a-dropdown-button>
@@ -67,7 +67,7 @@
                                 </a-dropdown-button>
                             </p>
                         </a-card>
-                    </a-col>
+                    </a-col>-->
                     <a-col :span="3">
                         <a-card :bordered="false">
                             <p>
@@ -192,7 +192,7 @@
                 });
             };
 
-            const handleYearMenuClick = (e: any) => {
+        /*    const handleYearMenuClick = (e: any) => {
                 loading.value = true;
                 course_scores.value = [];
 
@@ -214,7 +214,7 @@
                         message.error(data.message);
                     }
                 });
-            };
+            };*/
 
             const handleCourseTypeMenuClick = (e: any) => {
                 loading.value = true;
@@ -269,7 +269,7 @@
                 course_scores,
                 user,
 
-                handleYearMenuClick,
+                //handleYearMenuClick,
                 handleCourseTypeMenuClick,
             }
         }

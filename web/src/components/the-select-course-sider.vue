@@ -13,14 +13,7 @@
             <a-sub-menu key="/select/major/course">
                 <template #title>
                     <span><user-outlined />
-                        <router-link to="/select/major/course" class="router-link-active"> 专业课程 </router-link>
-                    </span>
-                </template>
-            </a-sub-menu>
-            <a-sub-menu key="/select/general/course">
-                <template #title>
-                    <span><laptop-outlined />
-                        <router-link to="/select/general/course"  class="router-link-active"> 通识课程 </router-link>
+                        <router-link to="/select/major/course" class="router-link-active"> 推荐课程 </router-link>
                     </span>
                 </template>
             </a-sub-menu>

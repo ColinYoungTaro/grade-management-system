@@ -28,7 +28,7 @@
                             <a-col :span="7">
                                 <a-form :model="scoreAnalysis" :label-col="{ span: 3 }" :wrapper-col="{ span: 5 }">
                                     <a-form-item label="姓名">
-                                        <a>{{userId}}</a>
+                                        <a>{{userName}}</a>
                                     </a-form-item>
                                 </a-form>
                             </a-col>

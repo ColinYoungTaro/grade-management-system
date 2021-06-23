@@ -5,7 +5,7 @@
             :style="note"
     >
       <pre>
-学生成绩管理系统首页
+
       </pre>
     </a-layout-content>
   </a-layout>
@@ -22,7 +22,7 @@
       setup() {
           const note = ref();
           note.value = {
-              backgroundImage: 'url(' + require('../assets/home.jpg') + ')',
+              backgroundImage: 'url(' + require('../assets/a.jpg') + ')',
               backgroundRepeat: 'no-repeat',
               backgroundSize: '100%',
           };

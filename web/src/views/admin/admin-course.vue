@@ -10,6 +10,7 @@
                         <a-input v-model:value="param.courseUid" placeholder="课程代码">
                         </a-input>
                     </a-form-item>
+
                     <a-form-item>
                         <a-button type="primary" @click="handleQuery({page: 1, size: pagination.pageSize})">
                             查询

@@ -74,7 +74,7 @@ public class ScoreAnalyseService {
             accScores += score.getScore() * course.getCredit();
             credits += course.getCredit();
         }
-        return credits == 0f ? 0 : accScores / credits;
+        return credits == 0f ? 0 : (float)((int)(accScores / credits*100))/100;
     }
 
     /**

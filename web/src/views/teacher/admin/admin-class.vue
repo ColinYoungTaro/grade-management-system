@@ -82,6 +82,7 @@
                                     </a-card>
                                 </a-col>
                             </a-row>
+
                         </div>
                     </a-card>
                 </div>
@@ -411,6 +412,8 @@
                 // 使用刚指定的配置项和数据显示图表。
                 averageScoreChart.setOption(categoryScoreOption);
             };
+
+
 
 
             onMounted(() => {

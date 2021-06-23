@@ -7,21 +7,21 @@
             <a-sub-menu key="/admin/student">
                 <template #title>
                     <span><user-outlined />
-                        <router-link to="/admin/student">学生</router-link>
+                        <router-link to="/admin/student" class="router-link-active">学生</router-link>
                     </span>
                 </template>
             </a-sub-menu>
             <a-sub-menu key="/admin/teacher">
                 <template #title>
                     <span><user-outlined />
-                         <router-link to="/admin/teacher">教师</router-link>
+                         <router-link to="/admin/teacher" class="router-link-active">教师</router-link>
                     </span>
                 </template>
             </a-sub-menu>
             <a-sub-menu key="/admin/manager">
                 <template #title>
                     <span><laptop-outlined />
-                         <router-link to="/admin/manager">管理员</router-link>
+                         <router-link to="/admin/manager" class="router-link-active">管理员</router-link>
                     </span>
                 </template>
             </a-sub-menu>
@@ -36,3 +36,14 @@
         name: 'the-user-sider'
     });
 </script>
+
+<style>
+    .router-link-active {
+        text-decoration: none;
+        color: gray;
+    }
+    a{
+        text-decoration: none;
+        color: gray;
+    }
+</style>
