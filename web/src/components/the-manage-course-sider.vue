@@ -11,13 +11,6 @@
                     </span>
                 </template>
             </a-sub-menu>
-            <a-sub-menu key="/admin/course_schedule">
-                <template #title>
-                    <span><user-outlined />
-                         <router-link to="/admin/course_schedule">教学安排</router-link>
-                    </span>
-                </template>
-            </a-sub-menu>
         </a-menu>
     </a-layout-sider>
 </template>

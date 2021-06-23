@@ -48,30 +48,6 @@ public class CourseInfoController {
         List<StudentQueryCourseResp> recommendedCourseList = studentService.getRecommendedCourse(req);
         resp.setContent(recommendedCourseList);
         return resp;
-       /* Student student = studentService.getStudentById(studentId);
-        if(student == null){
-            CommonResp.error("没有该学生");
-        }
-        Integer majorId = student.getMajorId();
-        Major major = majorService.getMajorById(majorId);
-        List<Course> courses = majorService.getTrainingProgramCourses(majorId);
-        List<CourseScheduleResp> resultSet = new ArrayList<>();
-        if(!ObjectUtils.isEmpty(courses)){
-            for(Course course : courses){
-                List<CourseSchedule> scheduleList = majorService.getScheduledClassesByCourse(course);
-                for(CourseSchedule scheduleRecord : scheduleList){
-                    Long id = scheduleRecord.getTeacherId();
-                    SchoolUser user = schoolUserService.getSchoolUser(id);
-                    CourseScheduleResp respContent = new CourseScheduleResp();
-                    respContent.setCourse(course);
-                    respContent.setTeacher(user);
-                    respContent.setSchedule(scheduleRecord);
-                    resultSet.add(respContent);
-                }
-            }
-        }
-
-        return CommonResp.success("获得可选课程成功",resultSet);*/
     }
 
 }

@@ -1,0 +1,15 @@
+### 获得成绩分析
+GET http://localhost:8880/score/analysis/student/3180102342
+
+### 获得成绩分析 用户不存在
+GET http://localhost:8880/score/analysis/student/3180104343
+
+
+### 获得班级的分数列表
+GET http://localhost:8880/score/analysis/class
+Content-Type: application/json
+
+{
+    "courseUid":"21120062",
+    "classIndex":1
+}
