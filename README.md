@@ -1,1 +1,4 @@
-# 学生成绩管理系统
+# Students' grade management system
+
+the backend is implemented in SpringBoot and MyBatis
+the frontend is implemented in Vue.js
